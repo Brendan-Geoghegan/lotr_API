@@ -29,3 +29,35 @@
 // };
 
 // myPromise().catch((err) => console.log(err));
+
+
+const charInfo = async (index) => {
+    const rawData = await fetch(`https://swapi.dev/api/people/${index}`);
+    const characters = await rawData.json();
+    console.log(characters);
+    const characterName = document.getElementById("charName");
+    characterName.textContent = characters.name;
+    const charPlanet = document.getElementById("charPlanet");
+    charPlanet.textContent = characters.homeworld.name;
+    console.log(characters.homeworld.name);
+    const charHeight = document.getElementById("charHeight");
+    charHeight.textContent = characters.height;
+
+    // const pokeList = document.getElementById("list");
+    // pokeList.innerHTML = "";
+    // for (let i = 0; i < 5; i++) {
+    //     let li = document.createElement("li");
+    //     li.textContent = pokemonData.moves[i].move.name;
+    //     pokeList.appendChild(li);
+    // }
+    
+}
+charInfo(1).catch(err => console.log(err));
+
+index = 1;
+
+const button = document.getElementById("charRandom");
+button.addEventListener("click", () => {
+    index = Math.floor(Math.random() * 82);
+    charInfo(index).catch(err => console.log(err));
+})
