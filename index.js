@@ -38,7 +38,10 @@ const charInfo = async (index) => {
     const characterName = document.getElementById("charName");
     characterName.textContent = characters.name;
     const charPlanet = document.getElementById("charPlanet");
-    charPlanet.textContent = characters.homeworld.name;
+
+    const planetLink = characters.homeworld;
+
+    charPlanet.textContent = await planetInfo(planetLink);
     console.log(characters.homeworld.name);
     const charHeight = document.getElementById("charHeight");
     charHeight.textContent = characters.height;
@@ -59,5 +62,15 @@ index = 1;
 const button = document.getElementById("charRandom");
 button.addEventListener("click", () => {
     index = Math.floor(Math.random() * 82);
+    if (index == 17) {
+        index == 16;
+    }
     charInfo(index).catch(err => console.log(err));
 })
+
+const planetInfo = async (index) => {
+    const rawData = await fetch(index);
+    const planets = await rawData.json();
+    console.log(planets);
+    return planets.name;
+}
